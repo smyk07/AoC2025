@@ -1,3 +1,9 @@
+/*
+ * AoC Day 1 : Secret Entrance
+ * Notes: circular range - modulo
+ */
+
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -65,12 +71,12 @@ public:
 };
 
 class DialPart2 {
-  unsigned int pointing_at;
+  int pointing_at;
   unsigned int count_zero;
 
   void move_dial(const std::string &arg) {
     char direction = arg[0];
-    unsigned int by = std::stoi(arg.substr(1));
+    int by = std::stoi(arg.substr(1));
 
     /* Initial implementation
     switch (direction) {
@@ -100,6 +106,7 @@ class DialPart2 {
     }
     */
 
+    /* Second try
     if (direction == 'L') {
       for (int i = 0; i < by; i++) {
         pointing_at = (pointing_at + 99) % 100;
@@ -112,6 +119,15 @@ class DialPart2 {
         if (pointing_at == 0)
           count_zero++;
       }
+    }
+    */
+
+    int temp = (direction == 'L') ? 99 : 1;
+
+    for (int i = 0; i < by; i++) {
+      pointing_at = (pointing_at + temp) % 100;
+      if (pointing_at == 0)
+        count_zero++;
     }
   }
 
